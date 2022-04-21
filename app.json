@@ -4,11 +4,11 @@
     "slug": "global-project",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/instagram.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/instagram.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffe5f1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/instagram.png",
+        "backgroundColor": "#ffe5f1"
       }
     },
     "web": {
