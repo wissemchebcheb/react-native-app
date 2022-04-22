@@ -7,14 +7,14 @@ export default function App() {
   const [taskItems, setTaskItems] = useState([]);
 
   const handleAddTask = () => {
-    Keyboard.dismiss();
+    Keyboard.dismiss(); //to disable keyBoard on mobile phone
     setTaskItems([...taskItems, task])
     setTask(null);
   }
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
+    itemsCopy.splice(index, 1); // to delete one item from the new array
     setTaskItems(itemsCopy)
   }
 
