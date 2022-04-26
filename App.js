@@ -1,66 +1,58 @@
-import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
-import Task from './Components/Task';
-
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+ 
+} from "react-native";
+import TaskExpen from "./Components/Task"
 export default function App() {
-  const [task, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+  const [state, setstate] = useState("");
 
-  const handleAddTask = () => {
-    Keyboard.dismiss(); //to disable keyBoard on mobile phone
-    setTaskItems([...taskItems, task])
-    setTask(null);
-  }
-
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1); // to delete one item from the new array
-    setTaskItems(itemsCopy)
-  }
-
+  const onChangeText = (text) => {
+    setstate(text);
+  };
   return (
     <View style={styles.container}>
-      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}
-        keyboardShouldPersistTaps='handled'
-      >
+      {/* title */}
+      <View style={styles.TileBox}>
+        <Text>Today's Task</Text>
+      </View>
 
-      {/* Today's Tasks */}
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's tasks</Text>
-        <View style={styles.items}>
-          {/* This is where the tasks will go! */}
-          {
-            taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                  <Task text={item} /> 
-                </TouchableOpacity>
-              )
-            })
-          }
+      {/* body tasks */}
+
+      {/* Task Component */}
+      <View style={styles.BoxCard}>
+        <View style={styles.Item}>
+          <View style={styles.Icon1}></View>
+          <View style={styles.TextBox}>
+            <TaskExpen />
+          </View>
+        </View>
+
+        <View style={styles.Icon2}></View>
+      </View>
+
+      {/* Footer input + button */}
+
+      <View style={styles.Footer}>
+        <View style={styles.InputBox}>
+          <TextInput
+            style={styles.Input}
+            value={state}
+            onChangeText={(text) => {
+              onChangeText(text);
+            }}
+          />
+        </View>
+        <View style={styles.BuutonBox}>
+          <TouchableOpacity style={styles.button}>
+            <Text>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
-        
-      </ScrollView>
-
-      {/* Write a task */}
-      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
-      >
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-      
     </View>
   );
 }
@@ -68,45 +60,84 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: "#E8EAED",
+    alignItems: "center",
   },
-  tasksWrapper: {
-    paddingTop: 80,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold'
-  },
-  items: {
+  TileBox: {
+    height: 40,
     marginTop: 30,
+    backgroundColor: "#ccc",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "95%",
   },
-  writeTaskWrapper: {
-    position: 'absolute',
-    bottom: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  input: {
-    paddingVertical: 15,
+  BoxCard: {
+    width: "95%",
+    height: 30,
+    marginVertical: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#ccc",
+    paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    width: 250,
+    height: 50,
+    justifyContent: "space-between",
   },
-  addWrapper: {
-    width: 60,
+  Icon1: {
+    width: 30,
+    height: 30,
+    backgroundColor: "blue",
+    // marginRight:15
+  },
+  Icon2: {
+    height: 15,
+    width: 15,
+    borderRadius: 10,
+    backgroundColor: "#f11",
+  },
+  Item: {
+    // backgroundColor:"#0006",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  TextBox: {
+    marginLeft: 15,
+  },
+  Footer: {
+    backgroundColor: "#ddd",
     height: 60,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
+    width: "95%",
+    position: "absolute",
+    bottom: 40,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  addText: {},
+  InputBox: {
+    height: "100%",
+    width: "70%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  BuutonBox: {
+    width: "20%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#eee",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 25,
+  },
+  Input: {
+    backgroundColor: "#fff",
+    width: "95%",
+    height: 50,
+    borderRadius: 25,
+    paddingLeft: 15,
+  },
 });
+
